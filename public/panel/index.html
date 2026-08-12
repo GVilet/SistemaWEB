@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de la empresa</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="badge mono" id="claveBadge">—</div>
+      <div>
+        <div class="name" id="nombreEmpresaTag">Empresa</div>
+        <div class="role-tag">Panel empresarial</div>
+      </div>
+    </div>
+
+    <div class="nav-item active">Inicio</div>
+    <div class="nav-item" id="navCambiarPassword">Cambiar contrasena</div>
+
+    <div class="sidebar-footer">
+      <button class="btn-secondary" id="btnLogout" style="width:100%">Cerrar sesion</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="main-header">
+      <div>
+        <div class="eyebrow">Panel principal</div>
+        <h1 id="saludo">Bienvenido</h1>
+      </div>
+    </div>
+
+    <div class="card empty-state" id="vistaInicio">
+      Este es tu panel base. Los proximos modulos de informacion apareceran aqui.
+    </div>
+
+    <div class="card" id="vistaPassword" style="display:none; max-width:380px">
+      <h2 style="font-size:16px; margin-bottom:16px">Cambiar contrasena</h2>
+      <div class="msg-error" id="msgErrorPass"></div>
+      <form id="formPassword">
+        <label for="passwordActual">Contrasena actual</label>
+        <input type="password" id="passwordActual" required>
+        <label for="passwordNueva">Nueva contrasena (minimo 8 caracteres)</label>
+        <input type="password" id="passwordNueva" required minlength="8">
+        <button type="submit" class="btn-primary">Guardar nueva contrasena</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/panel/js/panel.js"></script>
+</body>
+</html>

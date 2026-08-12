@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso al sistema</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="login-shell">
+  <div class="login-card">
+    <div class="login-badge">01</div>
+    <h1>Acceso al sistema</h1>
+    <p class="subtitle">Ingresa con la clave y contrasena asignadas por el gestor.</p>
+
+    <div class="msg-error" id="msgError"></div>
+
+    <form id="formLogin">
+      <label for="clave">Clave</label>
+      <input type="text" id="clave" name="clave" autocomplete="username" placeholder="Ej. 7 o AdminGral" required>
+
+      <label for="password">Contrasena</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required>
+
+      <button type="submit" class="btn-primary" id="btnSubmit">Ingresar</button>
+    </form>
+
+    <p class="help-text">¿Olvidaste tu contrasena? Solicita a tu gestor un restablecimiento.</p>
+  </div>
+</div>
+
+<script src="/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administracion — Sistema de Empresas</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="badge">AG</div>
+      <div>
+        <div class="name">Panel General</div>
+        <div class="role-tag">Administracion</div>
+      </div>
+    </div>
+
+    <div class="nav-item active">Usuarios empresariales</div>
+
+    <div class="sidebar-footer">
+      <button class="btn-secondary" id="btnLogout" style="width:100%">Cerrar sesion</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="main-header">
+      <div>
+        <div class="eyebrow">Modulo de administracion</div>
+        <h1>Usuarios empresariales</h1>
+      </div>
+      <button class="btn-primary" style="width:auto; padding: 11px 18px;" id="btnNuevo">+ Registrar empresa</button>
+    </div>
+
+    <div class="card">
+      <div class="toolbar">
+        <div class="mono" style="font-size:12.5px; color:var(--ink-soft)" id="contador">Cargando...</div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Clave</th>
+              <th>Empresa</th>
+              <th>Estado</th>
+              <th>Actualizado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbodyUsuarios"></tbody>
+        </table>
+        <div class="empty-state" id="emptyState" style="display:none">
+          Aun no hay empresas registradas. Usa "Registrar empresa" para dar de alta la primera.
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal: registrar / editar -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h2 id="modalTitulo">Registrar empresa</h2>
+    <form id="formUsuario">
+      <input type="hidden" id="usuarioId">
+      <div class="field-row">
+        <div>
+          <label for="clave">Clave (1-40)</label>
+          <input type="text" id="claveInput" placeholder="Ej. 7">
+        </div>
+      </div>
+      <label for="nombreEmpresa">Nombre de la empresa</label>
+      <input type="text" id="nombreEmpresa" placeholder="Razon social">
+
+      <div id="passwordResultado" style="display:none">
+        <label>Contrasena inicial asignada</label>
+        <div class="password-reveal mono" id="passwordTexto"></div>
+        <p class="help-text" style="margin-top:8px">Copia esta contrasena y entregala a la empresa. No se volvera a mostrar.</p>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:18px">
+        <button type="button" class="btn-secondary" id="btnCancelar" style="flex:1">Cancelar</button>
+        <button type="submit" class="btn-primary" id="btnGuardar" style="flex:1">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/admin/js/admin.js"></script>
+</body>
+</html>
