@@ -1,18 +1,19 @@
-require('dotenv').config();
-
-const path = require('path');
-const express = require('express');
-const helmet = require('helmet');
-const cors = require('cors');
-const session = require('express-session');
-
+require('dotenv').config(); 
+const fs = require('fs'); 
+const path = require('path'); 
+const express = require('express'); 
+const helmet = require('helmet'); 
+const cors = require('cors'); 
+const session = require('express-session'); 
+const FileStore = require('session-file-store')(session); 
 const authRoutes = require('./src/routes/auth');
-const adminRoutes = require('./src/routes/admin');
-const panelRoutes = require('./src/routes/panel');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
+// Carpeta donde se guardan las sesiones activas (un archivo por sesion). 
+const SESSIONS_DIR = path.join(__dirname, 'data', 'sessions'); 
+if (!fs.existsSync(SESSIONS_DIR)) fs.mkdirSync(SESSIONS_DIR, { recursive: true });
 
 app.set('trust proxy', 1); // necesario detras de Render/Railway para que "secure" cookies funcionen
 
@@ -39,18 +40,19 @@ app.use(express.json({ limit: '100kb' }));
 // ---------------------------------------------------------------------
 // Sesiones (cookie firmada, httpOnly, secure en produccion)
 // ---------------------------------------------------------------------
-app.use(session({
-  name: 'sid',
-  secret: process.env.SESSION_SECRET || 'CAMBIA_ESTE_SECRETO_EN_.env',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    secure: isProd,          // en produccion (HTTPS) exige cookie solo por HTTPS
-    sameSite: 'strict',      // evita que la cookie se envie desde otros sitios (mitiga CSRF)
-    maxAge: 8 * 60 * 60 * 1000, // 8 horas
-  },
-}));
+app.use(session({ store: new FileStore({ path: SESSIONS_DIR, ttl: 8 * 60 * 60, retries: 0, logFn: () => {}, }), name: 'sid'
+//  app.use(session({
+//  name: 'sid',
+// secret: process.env.SESSION_SECRET || 'CAMBIA_ESTE_SECRETO_EN_.env',
+//  resave: false,
+//  saveUninitialized: false,
+//  cookie: {
+//    httpOnly: true,
+//    secure: isProd,          // en produccion (HTTPS) exige cookie solo por HTTPS
+//    sameSite: 'strict',      // evita que la cookie se envie desde otros sitios (mitiga CSRF)
+//    maxAge: 8 * 60 * 60 * 1000, // 8 horas
+//  },
+// }));
 
 // ---------------------------------------------------------------------
 // API
